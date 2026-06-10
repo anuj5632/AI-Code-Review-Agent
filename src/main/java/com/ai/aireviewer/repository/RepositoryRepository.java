@@ -8,5 +8,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface RepositoryRepository extends JpaRepository<RepositoryEntity, UUID> {
-    Optional<RepositoryEntity> findByGtthubRepoId(String repoId);
+    Optional<RepositoryEntity> findByGithubRepoId(String repoId);
 }
