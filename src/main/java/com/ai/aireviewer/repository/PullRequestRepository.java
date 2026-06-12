@@ -13,4 +13,5 @@ import java.util.UUID;
 public interface PullRequestRepository extends JpaRepository<PullRequest, UUID> {
     Optional<PullRequest> findByGithubPrId(long githubPrId);
     List<PullRequest> findByRepositoryId(UUID repositoryId);
+    boolean existsByGithubPrId(Long githubPrId);
 }

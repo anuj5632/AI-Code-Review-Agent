@@ -9,4 +9,5 @@ import java.util.UUID;
 
 public interface RepositoryRepository extends JpaRepository<RepositoryEntity, UUID> {
     Optional<RepositoryEntity> findByGithubRepoId(String repoId);
+    boolean existsByGithubRepoId(Long githubRepoId);
 }

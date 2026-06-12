@@ -11,4 +11,7 @@ import java.util.UUID;
 @Repository
 public interface ChangedFileRepository extends JpaRepository<ChangedFile, UUID> {
     List<ChangedFile> findByPullRequestId(UUID pullRequestId);
+    boolean existsByFilenameAndPullRequestId(
+            String filename,
+            UUID pullRequestId);
 }
