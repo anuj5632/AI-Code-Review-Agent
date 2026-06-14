@@ -33,12 +33,12 @@ public class ReviewServiceImpl implements ReviewService {
                         .stream()
                         .map(comment ->
                                 ReviewCommentDTO.builder()
-                                        .fileName(comment.getFilename())
-                                        .lineNumber(comment.getLineNumber())
+                                        //.fileName(comment.getFilename())
+                                        //.lineNumber(comment.getLineNumber())
                                         .severity(comment.getSeverity())
                                         .category(comment.getCategory())
                                         .comment(comment.getComment())
-                                        .suggestion(comment.getSuggestion())
+                                        //.suggestion(comment.getSuggestion())
                                         .build()
                         )
                         .toList();

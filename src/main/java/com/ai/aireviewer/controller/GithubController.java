@@ -1,13 +1,19 @@
 package com.ai.aireviewer.controller;
 
+import com.ai.aireviewer.dto.ReviewCommentDTO;
 import com.ai.aireviewer.dto.SyncResponseDTO;
+import com.ai.aireviewer.entity.ChangedFile;
 import com.ai.aireviewer.github.GithubApiClient;
+import com.ai.aireviewer.repository.ChangedFileRepository;
 import com.ai.aireviewer.repository.RepositoryRepository;
+import com.ai.aireviewer.repository.ReviewCommentRepository;
+import com.ai.aireviewer.review.ReviewOrchestrator;
 import com.ai.aireviewer.service.GithubService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,6 +24,8 @@ public class GithubController {
     private final GithubApiClient githubApiClient;
     private final RepositoryRepository repositoryRepository;
     private final GithubService githubService;
+    private final ChangedFileRepository changedFileRepository;
+    private final ReviewOrchestrator reviewOrchestrator;
 
     @GetMapping("/repos")
     public Object repos() {
@@ -50,4 +58,18 @@ public class GithubController {
                 )
         );
     }
+
+    @PostMapping("/review/{changedFileId}")
+    public List<ReviewCommentDTO> review(
+            @PathVariable UUID changedFileId) {
+
+        ChangedFile file =
+                changedFileRepository.findById(
+                                changedFileId)
+                        .orElseThrow();
+
+        return reviewOrchestrator.review(
+                file.getPatch());
+    }
+
 }
