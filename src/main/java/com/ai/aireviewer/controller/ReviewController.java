@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/reviews")
 @RequiredArgsConstructor
@@ -27,5 +29,17 @@ public class ReviewController {
 
         return ResponseEntity.ok(
                 reviewService.getReview(reviewId));
+    }
+
+    @PostMapping("/generate/{pullRequestId}")
+    public ResponseEntity<String> generateReview(
+            @PathVariable UUID pullRequestId) {
+
+        UUID reviewId =
+                reviewService.generateReview(
+                        pullRequestId);
+
+        return ResponseEntity.ok(
+                reviewId.toString());
     }
 }
