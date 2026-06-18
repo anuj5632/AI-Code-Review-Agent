@@ -97,7 +97,7 @@ public class ReviewServiceImpl implements ReviewService {
 
             List<ReviewCommentDTO> comments =
                     reviewOrchestrator.review(
-                            file.getPatch());
+                            file.getPatch(),true);
 
             for (ReviewCommentDTO dto : comments) {
 

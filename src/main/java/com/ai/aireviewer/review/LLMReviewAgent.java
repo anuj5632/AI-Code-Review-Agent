@@ -1,6 +1,7 @@
 package com.ai.aireviewer.review;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -69,7 +69,9 @@ public class GithubController {
                         .orElseThrow();
 
         return reviewOrchestrator.review(
-                file.getPatch());
+                file.getPatch(),
+                true
+        );
     }
 
 }
