@@ -4,31 +4,35 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PromptBuilder {
-    public String buildReviewPrompt(String patch){
+    public String buildReviewPrompt(String patch) {
+
         return """
-                You are a Senior Software Engineer.
-                Review the following git diff.
-                
-                Focus on:
-                -Security
-                -Performance
-                -Readability
-                -Bugs
-                
-                Return ONLY JSON.
-                
-                {
-                "summary" : "...",
-                "comments" : [
-                    {   
-                        "category" : "SECURITY",
-                        "severity" : "HIGH",
-                        "comment" : "..."
-                    }
-                  ]
-                }
-                Diff:
-                %s
-                """.format(patch);
+        You are a senior software engineer.
+
+        Analyze the following git diff.
+
+        IMPORTANT:
+        Return ONLY valid JSON.
+        Do not include explanations.
+        Do not use markdown.
+        Do not use ```json blocks.
+
+        Expected format:
+
+        {
+          "summary":"string",
+          "comments":[
+            {
+              "category":"SECURITY",
+              "severity":"HIGH",
+              "comment":"string"
+            }
+          ]
+        }
+
+        Git Diff:
+
+        %s
+        """.formatted(patch);
     }
 }

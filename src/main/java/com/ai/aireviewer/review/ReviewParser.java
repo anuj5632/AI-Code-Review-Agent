@@ -1,17 +1,26 @@
 package com.ai.aireviewer.review;
 
 import com.ai.aireviewer.dto.ReviewResponseDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import lombok.RequiredArgsConstructor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
-import tools.jackson.databind.ObjectMapper;
 
 @Component
-@RequiredArgsConstructor
 public class ReviewParser {
-    private final ObjectMapper objectMapper;
 
-    public ReviewResponseDTO parse(String json) throws JsonProcessingException {
-        return objectMapper.readValue(json, ReviewResponseDTO.class);
+    private final ObjectMapper objectMapper =
+            new ObjectMapper();
+
+    public ReviewResponseDTO parse(String response)
+            throws Exception {
+
+        String cleanedResponse = response
+                .replace("```json", "")
+                .replace("```", "")
+                .trim();
+
+        return objectMapper.readValue(
+                cleanedResponse,
+                ReviewResponseDTO.class
+        );
     }
 }
